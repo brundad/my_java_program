@@ -1,0 +1,36 @@
+import java.util.*;
+class Test{
+    static boolean sol(String start,String end){
+        int j=0;
+        if(start.length()!=end.length())
+            return false;
+        for(int i=0;i<start.length();){
+            if(j<end.length()){
+                if(start.charAt(i)=='X')
+                    i++;
+                if(end.charAt(j)=='X')
+                    j++;
+                if(start.charAt(i)!='X' && end.charAt(j)!='X'){
+                    if(start.charAt(i)!=end.charAt(j))
+                        return false;
+                    else if(start.chart(i)=='L' && j>i)
+                        return false;
+                      else if(start.chart(i)=='R' && i>j)
+                        return false;
+                    else{
+                        i++;
+                        j++;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    public static void main(String[] args){
+        Scanner s=new scanner(System.in);
+        String start=s.nextLine();
+        String end=s.nextLine();
+        System.out.println(sol(start,end));
+    }
+}
+
