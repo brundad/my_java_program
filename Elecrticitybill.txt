@@ -1,0 +1,51 @@
+import java.util.*;
+class ebbill{
+    public static void main(String[] args) {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        String d=s.nextLine();
+        String a[]=new String[n];
+        for(int i=0;i<n;i++)
+            a[i]=s.nextLine();
+        HashMap<String,Integer> hm = new HashMap<>();
+        hm.put("shop1",0);
+        hm.put("shop2",0);
+        hm.put("shop3",0);
+        hm.put("shop4",0);
+        hm.put("shop5",0);
+        for(int i=0; i<a.length; i++){
+            if(a[i].split(": ").length==2){
+                String details = a[i].split(": ")[1];
+                String shops[] = details.split("\\$");
+                for(int j=0; j<shops.length; j++){
+                    String shop = shops[j].split(" ")[0];
+                    int power = Integer.parseInt( shops[j].split(" ")[1] );
+                    hm.put(shop , hm.get(shop)+power);
+                }
+            }    
+        }
+        //System.out.println(hm);
+        for(int i=1; i<=5; i++){
+            String temp = "shop"+i;
+            int power = hm.get(temp);
+            double bill = 0;
+            if(power<1000)
+                bill = (power*0.4);
+            else if(power>=1000 && power<=2000)
+            {
+                power -= 999;
+                bill = 999 *0.4 + power*0.33;
+            }
+            else if(power>2000 && power<=5000)
+            {
+                power -= 1999;   
+                bill = 999 * 0.4 + 1000 * 0.33 + power*0.3;
+            }
+            else if(power>5000)
+                bill = (power*0.2);
+            System.out.print(temp+":");
+            System.out.format("%.2f",bill);
+            System.out.println();
+        }
+    }
+}
