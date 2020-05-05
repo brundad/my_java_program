@@ -1,0 +1,93 @@
+import java.util.*;
+
+class Main{
+    public static int entries;
+    public static int count=0;
+    public static boolean checkValid(String balls[][]){
+        int flag=0;
+        for(int i=0;i<entries;i++){
+            for(int j=i+1;j<entries;j++){
+                if(balls[i][j].equals("R")){
+                   flag=1;
+                   break;
+                }
+            }
+        }
+       
+        return (flag==1)?false:true;
+       
+    }
+   
+    public static int getCount(String balls[],int index){
+        int count=0;
+        int indexval=index+1;
+        for(int i=0;i<balls.length;i++){
+            if(balls[i].equals("R")){
+                count+=i*indexval+i*indexval;
+            }
+        }
+        return count;
+    }
+   
+    public static String[][] swap(String balls[][],int i){
+        int c1=getCount(balls[i],i);
+        int c2=getCount(balls[i+1],i+1);
+       
+        if(c1>c2){
+        count++;
+        String[] temp=balls[i];
+        balls[i]=balls[i+1];
+        balls[i+1]=temp;
+        }
+       
+       
+        return balls;
+    }
+   
+    public static void findMinMove(String[][] balls,int n){
+       
+        int min=6000;
+       
+        if(checkValid(balls)){
+            min=0;
+        }else{
+           
+       
+       for(int j=0;j<n;j++){
+            for(int i=0;i<n-1;i++){
+       
+           
+            balls=swap(balls,i);
+ 
+            if(checkValid(balls)){
+           
+             if(min>count){
+                 min=count;
+             }
+            }
+        }
+       }
+       
+    }
+
+        if(min!=6000){
+            System.out.println(min);
+        }else{
+            System.out.println(-1);
+        }
+       
+    }
+   
+    public static void main(String args[]){
+        Scanner scan=new Scanner(System.in);
+        entries=scan.nextInt();
+        String balls[][]=new String[entries][entries];
+        scan.nextLine();
+        for(int i=0;i<entries;i++){
+                balls[i]=scan.nextLine().split("");
+        }
+       
+       findMinMove(balls,entries);
+       
+    }
+}
